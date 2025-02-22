@@ -12,6 +12,7 @@ export default async function AgentDetailsPage({
     const agent = await getAgentByUuid(uuid);
     return <AgentDetails agent={agent} />;
   } catch (err) {
+    console.log(err);
     notFound();
   }
 }

@@ -3,7 +3,6 @@
 import Image from "next/image";
 import { motion } from "motion/react";
 import { Agent } from "@/types/agent";
-import { AspectRatio } from "@/components/ui/aspect-ratio";
 
 interface AgentDetailsProps {
   agent: Agent;
