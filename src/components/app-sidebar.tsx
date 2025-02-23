@@ -49,7 +49,7 @@ const AppSidebar = () => {
                 <SidebarMenuButton asChild>
                   <Link href="/should-i-pick">
                     <Users className="mr-2 h-4 w-4" />
-                    <span>Sage Seçmeli miyim?</span>
+                    <span>Seçmeli miyim?</span>
                   </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>

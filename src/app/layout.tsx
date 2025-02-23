@@ -8,6 +8,7 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar";
 import AppSidebar from "@/components/app-sidebar";
+import { Toaster } from "sonner";
 
 const bricolage = Bricolage_Grotesque({
   variable: "--font-bricolage",
@@ -36,6 +37,7 @@ export default function RootLayout({
               <div className="px-6 py-4 w-full">{children}</div>
             </SidebarInset>
           </SidebarProvider>
+          <Toaster richColors closeButton position="top-right" />
         </Providers>
       </body>
     </html>
