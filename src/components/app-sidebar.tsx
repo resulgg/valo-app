@@ -19,6 +19,7 @@ import {
   Trophy,
   Medal,
   Contact2,
+  Gift,
 } from "lucide-react";
 import Link from "next/link";
 import { NavUser } from "@/components/nav-user";
@@ -50,6 +51,14 @@ const AppSidebar = () => {
                   <Link href="/should-i-pick">
                     <Users className="mr-2 h-4 w-4" />
                     <span>Seçmeli miyim?</span>
+                  </Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+              <SidebarMenuItem>
+                <SidebarMenuButton asChild>
+                  <Link href="/case-opening">
+                    <Gift className="mr-2 h-4 w-4" />
+                    <span>Kasa Açma</span>
                   </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>

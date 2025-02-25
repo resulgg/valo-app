@@ -10,6 +10,9 @@ import {
   ImageIcon,
   Shuffle,
   HelpCircle,
+  GiftIcon,
+  GamepadIcon,
+  WrenchIcon,
 } from "lucide-react";
 
 interface FeatureCardProps {
@@ -37,6 +40,22 @@ function FeatureCard({ title, description, icon, href }: FeatureCardProps) {
   );
 }
 
+function CategoryHeader({
+  title,
+  icon,
+}: {
+  title: string;
+  icon: React.ReactNode;
+}) {
+  return (
+    <div className="flex items-center gap-3 mb-6 w-full">
+      <div className="p-2 rounded-lg bg-primary/10 text-primary">{icon}</div>
+      <h2 className="text-2xl font-bold text-foreground">{title}</h2>
+      <div className="flex-1 h-px bg-border ml-3"></div>
+    </div>
+  );
+}
+
 async function getCatImage() {
   const res = await fetch("https://api.thecatapi.com/v1/images/search");
   const data = await res.json();
@@ -45,7 +64,8 @@ async function getCatImage() {
 
 export default async function Home() {
   const catImageUrl = await getCatImage();
-  const features = [
+
+  const gameElements = [
     {
       title: "Ajanlar",
       description:
@@ -73,13 +93,6 @@ export default async function Home() {
       href: "/sprays",
     },
     {
-      title: "Rekabetçi",
-      description:
-        "Rekabetçi istatistiklerinizi ve sıralamalarınızı takip edin.",
-      icon: <Trophy className="w-6 h-6" />,
-      href: "/competitive",
-    },
-    {
       title: "Silah Aksesuarları",
       description: "Tüm silah aksesuarlarını ve koleksiyonlarını görüntüleyin.",
       icon: <Heart className="w-6 h-6" />,
@@ -91,6 +104,16 @@ export default async function Home() {
       icon: <ImageIcon className="w-6 h-6" />,
       href: "/player-cards",
     },
+    {
+      title: "Rekabetçi",
+      description:
+        "Rekabetçi istatistiklerinizi ve sıralamalarınızı takip edin.",
+      icon: <Trophy className="w-6 h-6" />,
+      href: "/competitive",
+    },
+  ];
+
+  const helperTools = [
     {
       title: "Rastgele Ajan",
       description:
@@ -104,15 +127,41 @@ export default async function Home() {
       icon: <HelpCircle className="w-6 h-6" />,
       href: "/should-i-pick",
     },
+    {
+      title: "Kasa Açma",
+      description: "Kasa açarak ne oynayacağınıza karar verin.",
+      icon: <GiftIcon className="w-6 h-6" />,
+      href: "/case-opening",
+    },
   ];
 
   return (
-    <div className="flex flex-col items-center gap-16 py-12">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-7xl">
-        {features.map((feature) => (
-          <FeatureCard key={feature.title} {...feature} />
-        ))}
+    <div className="flex flex-col items-center gap-16 py-12 px-4">
+      <div className="w-full max-w-7xl space-y-12">
+        <section>
+          <CategoryHeader
+            title="Yardımcı Araçlar"
+            icon={<WrenchIcon className="w-6 h-6" />}
+          />
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {helperTools.map((feature) => (
+              <FeatureCard key={feature.title} {...feature} />
+            ))}
+          </div>
+        </section>
+        <section>
+          <CategoryHeader
+            title="Oyun Öğeleri"
+            icon={<GamepadIcon className="w-6 h-6" />}
+          />
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {gameElements.map((feature) => (
+              <FeatureCard key={feature.title} {...feature} />
+            ))}
+          </div>
+        </section>
       </div>
+
       <div className="w-full max-w-md mx-auto text-center space-y-4">
         <h2 className="text-xl font-semibold text-foreground">Günün Kedisi</h2>
         <div className="relative aspect-square w-full rounded-xl overflow-hidden border border-border">
