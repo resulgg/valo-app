@@ -22,7 +22,9 @@ export async function getBuddies(page: number = 0): Promise<{
   items: Buddy[];
   nextPage: number | null;
 }> {
-  const response = await fetch("https://valorant-api.com/v1/buddies");
+  const response = await fetch(
+    "https://valorant-api.com/v1/buddies?language=tr-TR"
+  );
   if (!response.ok) {
     throw new Error("Failed to fetch buddies");
   }
@@ -37,7 +39,9 @@ export async function getBuddies(page: number = 0): Promise<{
 }
 
 export async function getBuddyByUuid(uuid: string): Promise<Buddy> {
-  const response = await fetch(`https://valorant-api.com/v1/buddies/${uuid}`);
+  const response = await fetch(
+    `https://valorant-api.com/v1/buddies/${uuid}?language=tr-TR`
+  );
   if (!response.ok) {
     throw new Error("Failed to fetch buddy");
   }

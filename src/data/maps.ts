@@ -9,7 +9,9 @@ interface Map {
 }
 
 export async function getMaps(): Promise<Map[]> {
-  const response = await fetch("https://valorant-api.com/v1/maps");
+  const response = await fetch(
+    "https://valorant-api.com/v1/maps?language=tr-TR"
+  );
   if (!response.ok) {
     throw new Error("Failed to fetch maps");
   }
@@ -18,7 +20,9 @@ export async function getMaps(): Promise<Map[]> {
 }
 
 export async function getMapByUuid(uuid: string): Promise<Map> {
-  const response = await fetch(`https://valorant-api.com/v1/maps/${uuid}`);
+  const response = await fetch(
+    `https://valorant-api.com/v1/maps/${uuid}?language=tr-TR`
+  );
   if (!response.ok) {
     throw new Error("Failed to fetch map");
   }

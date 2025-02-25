@@ -16,7 +16,9 @@ export async function getPlayerCards(page: number = 0): Promise<{
   items: PlayerCard[];
   nextPage: number | null;
 }> {
-  const response = await fetch("https://valorant-api.com/v1/playercards");
+  const response = await fetch(
+    "https://valorant-api.com/v1/playercards?language=tr-TR"
+  );
   if (!response.ok) {
     throw new Error("Failed to fetch player cards");
   }
@@ -32,7 +34,7 @@ export async function getPlayerCards(page: number = 0): Promise<{
 
 export async function getPlayerCardByUuid(uuid: string): Promise<PlayerCard> {
   const response = await fetch(
-    `https://valorant-api.com/v1/playercards/${uuid}`
+    `https://valorant-api.com/v1/playercards/${uuid}?language=tr-TR`
   );
   if (!response.ok) {
     throw new Error("Failed to fetch player card");

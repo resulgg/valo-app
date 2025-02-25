@@ -19,7 +19,9 @@ interface CompetitiveTierSet {
 }
 
 export async function getCompetitiveTiers(): Promise<CompetitiveTierSet[]> {
-  const response = await fetch("https://valorant-api.com/v1/competitivetiers");
+  const response = await fetch(
+    "https://valorant-api.com/v1/competitivetiers?language=tr-TR"
+  );
   if (!response.ok) {
     throw new Error("Failed to fetch competitive tiers");
   }
@@ -38,7 +40,7 @@ export async function getCompetitiveTierByUuid(
   uuid: string
 ): Promise<CompetitiveTierSet> {
   const response = await fetch(
-    `https://valorant-api.com/v1/competitivetiers/${uuid}`
+    `https://valorant-api.com/v1/competitivetiers/${uuid}?language=tr-TR`
   );
   if (!response.ok) {
     throw new Error("Failed to fetch competitive tier");

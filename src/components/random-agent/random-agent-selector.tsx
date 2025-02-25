@@ -60,29 +60,44 @@ const RandomAgentSelector = () => {
   };
 
   const generateRandomTeam = () => {
-    if (!agents) return;
+    if (!agents || agents.length === 0) return;
 
     const team: Agent[] = [];
     const requiredRoles = ["Controller", "Duelist", "Initiator", "Sentinel"];
+    const availableAgents = [...agents]; // Create a copy to avoid modifying the original
 
-    requiredRoles.forEach((role) => {
-      const roleAgents = agents.filter(
+    // First, add one agent from each required role
+    for (const role of requiredRoles) {
+      const roleAgents = availableAgents.filter(
         (agent) => agent.role.displayName === role
       );
-      const randomAgent =
-        roleAgents[Math.floor(Math.random() * roleAgents.length)];
-      if (randomAgent) team.push(randomAgent);
-    });
 
-    // Add a fifth random agent that is not already in the team
-    const remainingAgents = agents.filter(
-      (agent) => !team.some((teamAgent) => teamAgent.uuid === agent.uuid)
-    );
-    const randomFifthAgent =
-      remainingAgents[Math.floor(Math.random() * remainingAgents.length)];
-    if (randomFifthAgent) team.push(randomFifthAgent);
+      if (roleAgents.length > 0) {
+        const randomIndex = Math.floor(Math.random() * roleAgents.length);
+        const randomAgent = roleAgents[randomIndex];
+        team.push(randomAgent);
 
-    setSelectedAgents(team);
+        // Remove the selected agent from available agents to avoid duplicates
+        const agentIndex = availableAgents.findIndex(
+          (a) => a.uuid === randomAgent.uuid
+        );
+        if (agentIndex !== -1) {
+          availableAgents.splice(agentIndex, 1);
+        }
+      }
+    }
+
+    // Fill the team up to 5 agents with random agents from any role
+    while (team.length < 5 && availableAgents.length > 0) {
+      const randomIndex = Math.floor(Math.random() * availableAgents.length);
+      const randomAgent = availableAgents[randomIndex];
+      team.push(randomAgent);
+      availableAgents.splice(randomIndex, 1);
+    }
+
+    // Ensure we're setting the state with the complete team
+    console.log("Generated team:", team); // For debugging
+    setSelectedAgents([...team]); // Create a new array to ensure state update
   };
 
   const handleRandomize = () => {
@@ -221,38 +236,41 @@ const RandomAgentSelector = () => {
                 exit={{ opacity: 0, y: -20 }}
                 className="mt-8"
               >
-                <h3 className="text-lg font-semibold mb-4">Seçilen Ajanlar</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
+                <h3 className="text-lg font-semibold mb-4">
+                  Seçilen Ajanlar ({selectedAgents.length})
+                </h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
                   {selectedAgents.map((agent, index) => (
                     <motion.div
                       key={`${agent.uuid}-${index}`}
                       initial={{ opacity: 0, scale: 0.8 }}
                       animate={{ opacity: 1, scale: 1 }}
                       transition={{ delay: index * 0.1 }}
+                      className="w-full"
                     >
-                      <Card className="group relative overflow-hidden">
+                      <Card className="group relative overflow-hidden h-full">
                         <AspectRatio ratio={3 / 4}>
                           <Image
                             src={agent.fullPortrait || agent.displayIcon}
                             alt={agent.displayName}
                             fill
                             className="object-cover transition-all duration-500 group-hover:scale-110"
-                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                            sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 20vw"
                           />
 
-                          <div className="absolute bottom-0 left-0 right-0 p-4">
-                            <div className="relative space-y-3">
-                              <h3 className="text-2xl font-bold drop-shadow-lg">
+                          <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/70 to-transparent">
+                            <div className="relative space-y-2">
+                              <h3 className="text-xl font-bold text-white drop-shadow-lg">
                                 {agent.displayName}
                               </h3>
-                              <div className="inline-flex items-center gap-2 px-3 py-2 rounded-lg backdrop-blur-md">
+                              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-lg backdrop-blur-md bg-black/30">
                                 <Image
                                   src={agent.role.displayIcon}
                                   alt={agent.role.displayName}
-                                  width={20}
-                                  height={20}
+                                  width={16}
+                                  height={16}
                                 />
-                                <span className="text-sm font-medium tracking-wider uppercase">
+                                <span className="text-xs font-medium tracking-wider uppercase text-white">
                                   {agent.role.displayName}
                                 </span>
                               </div>

@@ -1,4 +1,4 @@
-interface WeaponSkin {
+export interface WeaponSkin {
   uuid: string;
   displayName: string;
   displayIcon: string;
@@ -6,7 +6,7 @@ interface WeaponSkin {
   assetPath: string;
 }
 
-interface WeaponStats {
+export interface WeaponStats {
   fireRate: number;
   magazineSize: number;
   runSpeedMultiplier: number;
@@ -20,7 +20,7 @@ interface WeaponStats {
   altFireType: string | null;
 }
 
-interface Weapon {
+export interface Weapon {
   uuid: string;
   displayName: string;
   category: string;
@@ -43,26 +43,4 @@ interface Weapon {
     newImage2: string | null;
   } | null;
   skins: WeaponSkin[];
-}
-
-export async function getWeapons(): Promise<Weapon[]> {
-  const response = await fetch(
-    "https://valorant-api.com/v1/weapons?language=tr-TR"
-  );
-  if (!response.ok) {
-    throw new Error("Failed to fetch weapons");
-  }
-  const data = await response.json();
-  return data.data;
-}
-
-export async function getWeaponByUuid(uuid: string): Promise<Weapon> {
-  const response = await fetch(
-    `https://valorant-api.com/v1/weapons/${uuid}?language=tr-TR`
-  );
-  if (!response.ok) {
-    throw new Error("Failed to fetch weapon");
-  }
-  const data = await response.json();
-  return data.data;
 }

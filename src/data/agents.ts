@@ -21,7 +21,7 @@ interface Agent {
 
 export async function getAgents(): Promise<Agent[]> {
   const response = await fetch(
-    "https://valorant-api.com/v1/agents?isPlayableCharacter=true"
+    "https://valorant-api.com/v1/agents?isPlayableCharacter=true&language=tr-TR"
   );
   if (!response.ok) {
     throw new Error("Failed to fetch agents");
@@ -31,7 +31,9 @@ export async function getAgents(): Promise<Agent[]> {
 }
 
 export async function getAgentByUuid(uuid: string): Promise<Agent> {
-  const response = await fetch(`https://valorant-api.com/v1/agents/${uuid}`);
+  const response = await fetch(
+    `https://valorant-api.com/v1/agents/${uuid}?language=tr-TR`
+  );
   if (!response.ok) {
     throw new Error("Failed to fetch agent");
   }

@@ -57,7 +57,7 @@ export default function ShouldIPick() {
         if (prev <= 1) {
           clearInterval(countdownInterval);
           setIsDeciding(false);
-          const newDecision = Math.random() > 0.5 ? "Seçiceksin!" : "Seçme!";
+          const newDecision = Math.random() > 0.5 ? "Seçeceksin!" : "Seçme!";
           setDecision(newDecision);
           return 0;
         }
@@ -112,7 +112,7 @@ export default function ShouldIPick() {
               animate={{ y: 0, opacity: 1 }}
               transition={{ type: "spring", stiffness: 200, damping: 20 }}
             >
-              {currentAgent.displayName} seçicek misin?
+              {currentAgent.displayName} seçecek misin?
             </motion.h1>
 
             <motion.div
@@ -135,7 +135,7 @@ export default function ShouldIPick() {
                     ? {
                         scale: [1, 1.02, 1],
                       }
-                    : decision === "Seçiceksin!"
+                    : decision === "Seçeceksin!"
                     ? {
                         filter: [
                           "brightness(1)",
@@ -393,7 +393,7 @@ export default function ShouldIPick() {
                       {/* Background Shape */}
                       <motion.div
                         className={`absolute -inset-4 ${
-                          decision === "Seçiceksin!"
+                          decision === "Seçeceksin!"
                             ? "bg-green-500/10"
                             : "bg-red-500/10"
                         }`}
@@ -407,7 +407,7 @@ export default function ShouldIPick() {
                       {/* Border */}
                       <motion.div
                         className={`absolute -inset-4 border-2 ${
-                          decision === "Seçiceksin!"
+                          decision === "Seçeceksin!"
                             ? "border-green-500/30"
                             : "border-red-500/30"
                         }`}
@@ -421,7 +421,7 @@ export default function ShouldIPick() {
                       <div className="relative flex items-center gap-4 px-8 py-4">
                         <motion.div
                           className={`text-5xl md:text-7xl font-bold ${
-                            decision === "Seçiceksin!"
+                            decision === "Seçeceksin!"
                               ? "text-green-500"
                               : "text-red-500"
                           }`}

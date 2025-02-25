@@ -19,7 +19,9 @@ interface Spray {
 }
 
 export async function getSprays(): Promise<Spray[]> {
-  const response = await fetch("https://valorant-api.com/v1/sprays");
+  const response = await fetch(
+    "https://valorant-api.com/v1/sprays?language=tr-TR"
+  );
   if (!response.ok) {
     throw new Error("Failed to fetch sprays");
   }
@@ -28,7 +30,9 @@ export async function getSprays(): Promise<Spray[]> {
 }
 
 export async function getSprayByUuid(uuid: string): Promise<Spray> {
-  const response = await fetch(`https://valorant-api.com/v1/sprays/${uuid}`);
+  const response = await fetch(
+    `https://valorant-api.com/v1/sprays/${uuid}?language=tr-TR`
+  );
   if (!response.ok) {
     throw new Error("Failed to fetch spray");
   }
